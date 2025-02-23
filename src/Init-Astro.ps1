@@ -8,6 +8,9 @@ function Init-Astro {
     $lonVar = "ASTRO_OBS_LON"
     $altVar = "ASTRO_OBS_ALT"
 
+    # Force Invariant Culture for consistent decimal parsing
+    $culture = [System.Globalization.CultureInfo]::InvariantCulture
+
     if (-not $Location) {
         Write-Host "No location provided. You can enter latitude and longitude manually."
         $lat = Read-Host "Enter latitude"
@@ -28,12 +31,10 @@ function Init-Astro {
             $lat = $response[0].lat
             $lon = $response[0].lon
 
-            # Get elevation (altitude) from OpenTopoData or Google Elevation API (Optional)
+            # Get elevation (altitude) from OpenTopoData API (Optional)
             $elevationUrl = "https://api.opentopodata.org/v1/eudem25m?locations=$lat,$lon"
             $elevationResponse = Invoke-RestMethod -Uri $elevationUrl -Method Get
             $alt = if ($elevationResponse.results[0].elevation) { $elevationResponse.results[0].elevation } else { "0" }
-
-            Write-Host "Found coordinates: Latitude $lat, Longitude $lon, Altitude $alt m"
         }
         catch {
             Write-Host "Error: Failed to connect to geolocation services."
@@ -41,15 +42,25 @@ function Init-Astro {
         }
     }
 
-    # Set environment variables dynamically for the session only
+    # Convert values to Invariant Culture format (ensures `.` as decimal separator)
+    try {
+        $lat = [double]::Parse($lat, $culture).ToString($culture)
+        $lon = [double]::Parse($lon, $culture).ToString($culture)
+        $alt = [double]::Parse($alt, $culture).ToString($culture)
+    }
+    catch {
+        Write-Host "Error: Failed to parse latitude, longitude, or altitude."
+        return
+    }
+
+    # Set env vars for current session only
     Set-Item -Path "Env:$latVar" -Value $lat
     Set-Item -Path "Env:$lonVar" -Value $lon
     Set-Item -Path "Env:$altVar" -Value $alt
 
-    Write-Host "Observer position set for this session: (Lat: $lat, Lon: $lon, Alt: $alt m)"
+    Write-Host "Observer position set for this session:"
+    Write-Host " - Latitude: $lat"
+    Write-Host " - Longitude: $lon"
+    Write-Host " - Altitude: $alt m"
     Write-Host "These values will be reset when you close the session."
 }
-
-# Example usage:
-#   Init-Astro                    (Prompts for lat/lon manually)
-#   Init-Astro "Norway, Bergen"    (Looks up coordinates and altitude)
