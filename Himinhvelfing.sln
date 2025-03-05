@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himinhvelfing.Domain", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himinhvelfing.Services", "src\Himinhvelfing.Services\Himinhvelfing.Services.csproj", "{CBC66B44-212C-48B4-BE2A-0497792D437B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himinhvelfing.Prompt", "src\Himinhvelfing.Prompt\Himinhvelfing.Prompt.csproj", "{A9703CDD-CC76-43B4-BBF3-27E1B9A6319D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{CBC66B44-212C-48B4-BE2A-0497792D437B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBC66B44-212C-48B4-BE2A-0497792D437B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBC66B44-212C-48B4-BE2A-0497792D437B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9703CDD-CC76-43B4-BBF3-27E1B9A6319D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9703CDD-CC76-43B4-BBF3-27E1B9A6319D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9703CDD-CC76-43B4-BBF3-27E1B9A6319D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9703CDD-CC76-43B4-BBF3-27E1B9A6319D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0597A6EF-7C11-402B-BAA7-14EB633519D1} = {011A34D9-73D8-4D42-9261-8830DA7A91A6}
 		{CBC66B44-212C-48B4-BE2A-0497792D437B} = {011A34D9-73D8-4D42-9261-8830DA7A91A6}
+		{A9703CDD-CC76-43B4-BBF3-27E1B9A6319D} = {011A34D9-73D8-4D42-9261-8830DA7A91A6}
 	EndGlobalSection
 EndGlobal
