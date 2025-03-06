@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Himinhvelfing.Services;
+using SimplePromptFramework;
+
+var spf = new Spf(args, o => 
+    {
+        o.Services.AddHiminhvelfingServices();
+        o.BaseNamespace = "Himinhvelfing.Prompt.PromptHandlers";
+    }
+);
+
+await spf.StartAsync();
